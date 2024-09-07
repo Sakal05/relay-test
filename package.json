@@ -11,6 +11,7 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "@openzeppelin/defender-sdk-relay-client": "^1.14.3"
+    "@openzeppelin/defender-sdk-relay-client": "^1.14.3",
+    "defender-relay-client": "^1.38.3-rc.0"
   }
 }

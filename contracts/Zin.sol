@@ -1,0 +1,51 @@
+// SPDX-License-Identifier: Unlicense
+pragma solidity ^0.8.17;
+
+import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import {UUPSUpgradeable} from "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
+import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
+
+/// @title Box
+/// @notice A box with objects inside.
+contract Zin is Initializable, UUPSUpgradeable, OwnableUpgradeable {
+    /*//////////////////////////////////////////////////////////////
+                                VARIABLES
+    //////////////////////////////////////////////////////////////*/
+
+    /// @notice Number of objects inside the box.
+    uint256 public num;
+
+    /*//////////////////////////////////////////////////////////////
+                                FUNCTIONS
+    //////////////////////////////////////////////////////////////*/
+
+    /// @notice No constructor in upgradable contracts, so initialized with this function.
+    function initialize(uint256 objects, address multisig) public initializer {
+        __UUPSUpgradeable_init();
+        __Ownable_init(multisig);
+        // __ERC20_init(_token, _symbol);
+        // mint(multisig, 10000 ether);
+        // mint(msg.sender, 10000 ether);
+
+        num = objects;
+    }
+
+    /// @notice Remove an object from the box.
+    function removeObject() external {
+        require(num > 1, "Nothing inside");
+        num -= 1;
+    }
+
+    /// @notice Add an object from the box.
+    function addObject() external {
+        num += 1;
+    }
+
+    // function mint(address to, uint256 amount) public onlyOwner {
+    //     // _mint(to, amount);
+    // }
+
+    /// @dev Upgrades the implementation of the proxy to new address.
+    function _authorizeUpgrade(address) internal override onlyOwner {}
+}

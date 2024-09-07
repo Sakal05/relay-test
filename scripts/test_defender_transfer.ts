@@ -32,6 +32,7 @@ async function main() {
     actions.items[0].actionId,
     {}
   );
+  // client.relaySigner.sign()
 
   console.log("run action: ", runAction);
 
